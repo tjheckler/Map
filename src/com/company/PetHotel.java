@@ -59,7 +59,7 @@ public class PetHotel
 
 
 
-            } else if (command.equals("CHECKOUT")&& commands.length == 3)
+            } else if (command.equals("CHECKOUT")&& commands.length == 2)
             {
                 int x = Integer.parseInt(commands[1]);
                 rooms.remove(x);
