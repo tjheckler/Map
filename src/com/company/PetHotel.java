@@ -1,5 +1,6 @@
 package com.company;
 
+import java.sql.SQLOutput;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
@@ -44,11 +45,8 @@ public class PetHotel
                 int roomNumber = Integer.parseInt(commands[2]);
                 checkIn(petName, roomNumber);
 
-
-
             } else if (command.equals("OCCUPANCY"))
             {
-
 
                 for (Map.Entry<Integer,String> entry : rooms.entrySet() )
                 {
@@ -57,20 +55,13 @@ public class PetHotel
                     System.out.println("Room Number: "+roomNumber+ " Pet Name: "+petName);
                 }
 
-
-
             }
             else if (command.equals("MOVE")&& commands.length == 3)
 
             {
-
-
                 int roomNumber = Integer.parseInt(commands[1]);
                 Integer newRoomNumber = Integer.parseInt(commands[2]);
                 movePet(roomNumber, newRoomNumber);
-
-
-
 
             }
             else if (command.equals("CHECKOUT")&& commands.length == 2)
@@ -83,7 +74,14 @@ public class PetHotel
             {
                 rooms.clear();
                 System.out.println("Hotel is now empty");
-            }else
+            }
+            else if (command.equals("SWAP"))
+            {
+                int firstRoomNumber = Integer.parseInt(commands[1]);
+                Integer secondRoomNumber = Integer.parseInt(commands[2]);
+                swapPets(firstRoomNumber, secondRoomNumber);
+            }
+            else
             {
                 System.out.println("Please Try Again");
             }
@@ -105,6 +103,16 @@ public class PetHotel
             rooms.remove(roomNumber);
             rooms.put(newRoomNumber, petName);
         }
+    }
+    private void swapPets(int firstRoomNumber, int secondRoomNumber)
+    {
+        String firstPetName = rooms.remove(firstRoomNumber);
+        String secondPetName = rooms.remove(secondRoomNumber);
+        System.out.println("Moving " + firstPetName + " to " + secondRoomNumber);
+        System.out.println("Moving "+ secondPetName + " to "+ firstRoomNumber);
+
+        rooms.put(secondRoomNumber, firstPetName);
+        rooms.put(firstRoomNumber, secondPetName);
     }
     private void checkIn(String petName, int roomNumber)
     {
