@@ -52,14 +52,28 @@ public class PetHotel
 
                 for (Map.Entry<Integer,String> entry : rooms.entrySet() )
                 {
-                    Integer key = entry.getKey();
-                    String value = entry.getValue();
-                    System.out.println("Room Number: "+key+ " Pet Name: "+value);
+                    Integer roomNumber = entry.getKey();
+                    String petName = entry.getValue();
+                    System.out.println("Room Number: "+roomNumber+ " Pet Name: "+petName);
                 }
 
 
 
-            } else if (command.equals("CHECKOUT")&& commands.length == 2)
+            }
+            else if (command.equals("MOVE")&& commands.length == 3)
+
+            {
+
+
+                int roomNumber = Integer.parseInt(commands[1]);
+                Integer newRoomNumber = Integer.parseInt(commands[2]);
+                movePet(roomNumber, newRoomNumber);
+
+
+
+
+            }
+            else if (command.equals("CHECKOUT")&& commands.length == 2)
             {
                 int x = Integer.parseInt(commands[1]);
                 rooms.remove(x);
@@ -77,6 +91,20 @@ public class PetHotel
         while (!command.equals("EXIT"));
         System.out.println("You Have Ended Program");
 
+    }
+    private void movePet(int roomNumber, int newRoomNumber)
+    {
+        if(rooms.containsKey(newRoomNumber))
+        {
+            System.out.println("Sorry room is already filled");
+        }
+        else
+        {
+            String petName = rooms.remove(roomNumber);
+            System.out.println("Moving " + petName + " to " + newRoomNumber);
+            rooms.remove(roomNumber);
+            rooms.put(newRoomNumber, petName);
+        }
     }
     private void checkIn(String petName, int roomNumber)
     {
